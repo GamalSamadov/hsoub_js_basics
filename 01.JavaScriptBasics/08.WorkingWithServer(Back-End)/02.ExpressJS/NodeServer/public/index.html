@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+  <title>Document</title>
+</head>
+<body>
+  <h1>Hello world!</h1>
+
+  <form id="formElem">
+    <input type="text" name="name" id="formName" />
+    <input type="email" name="email" id="formEmail" />
+
+    <input type="submit" />
+  </form>
+
+  <script>
+
+    // Post the form
+    formElem.onsubmit = async e => {
+      e.preventDefault();
+      // alert("Submit")
+      const data = {
+        name: formName.value,
+        email: formEmail.value
+      }
+      // console.log(data);
+
+      // using only fetch
+
+      // const response = await fetch("http://localhost:3000/user", {
+      //   method: "POST",
+      //   headers: {
+      //     'Content-Type' : "application/json"
+      //   },
+      //   body: JSON.stringify(data)
+      // });
+      // const resault = await response.json();
+      // alert(resault.message);
+
+      // using axios
+      const response = await axios.post("http://localhost:3000/user", data);
+      alert(response.data.message);
+
+
+    }
+
+
+    // Using async/await
+    async function fetchUsers() {
+      try {
+        // Using fetch
+
+        // const response = await fetch("http://localhost:3000/user");
+        // let users = await response.json();
+        // console.log(users);
+
+        // using axios
+
+        const response = await axios.get("http://localhost:3000/user");
+        console.log(response.data);
+
+      } catch(e) {
+          console.log("Error", e);
+      }
+    }
+
+    fetchUsers();
+
+    // Using only fetch
+    // fetch("http://localhost:3000/user")
+    // .then(response => response.json())
+    // .then(users => console.log(users))
+    // .catch(error => console.log("Error", error))
+  </script>
+</body>
+</html>
